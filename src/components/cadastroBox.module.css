@@ -1,0 +1,104 @@
+.wrapper {
+  position: relative;
+  z-index: 30;
+}
+
+/* BOTÃO PRINCIPAL */
+.button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  padding: 0.55rem 1.4rem;
+  border-radius: 999px;
+  border: none;
+
+  background: rgba(255, 255, 255, 0.95);
+  color: var(--cor-primaria);
+  font-weight: 500;
+  cursor: pointer;
+
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.18);
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    background 0.25s ease;
+}
+
+.button:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+}
+
+/* DROPDOWN */
+.dropdown {
+  position: absolute;
+  top: 130%;
+  right: 0;
+
+  min-width: 12rem;
+  padding: 0.5rem;
+
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  border-radius: 0.9rem;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.25);
+
+  animation: dropdownFade 0.25s ease-out;
+}
+
+/* ITENS */
+.itemContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+
+  padding: 0.65rem 1rem;
+  border-radius: 0.6rem;
+
+  color: #111827;
+  font-weight: 500;
+  cursor: pointer;
+
+  transition:
+    background 0.25s ease,
+    transform 0.2s ease;
+}
+
+.itemContainer:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(78, 150, 209, 0.15),
+    rgba(0, 109, 178, 0.15)
+  );
+  transform: translateX(4px);
+}
+
+/* ÍCONES */
+.iconAluno {
+  width: 22px;
+  height: 22px;
+}
+
+.iconInstrutor {
+  width: 26px;
+  height: 26px;
+}
+
+/* ANIMAÇÃO */
+@keyframes dropdownFade {
+  from {
+    opacity: 0;
+    transform: translateY(-6px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
