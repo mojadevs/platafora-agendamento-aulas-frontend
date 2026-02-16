@@ -1,0 +1,32 @@
+datasource db {
+  provider = "mysql"
+  url      = "mysql://root:100607mateus@localhost:3306/chat"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id       Int      @id @default(autoincrement())
+  name     String
+  role     String   // "instrutor" ou "aluno"
+  messages Message[]
+}
+
+model ChatRoom {
+  id        Int       @id @default(autoincrement())
+  title     String?
+  users     User[]    @relation("ChatUsers")
+  messages  Message[]
+}
+
+model Message {
+  id        Int      @id @default(autoincrement())
+  content   String
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
+  room      ChatRoom @relation(fields: [roomId], references: [id])
+  roomId    Int
+}
