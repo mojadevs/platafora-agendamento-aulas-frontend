@@ -1,51 +1,123 @@
 /* dashboard.module.css */
 
+/* --- LAYOUT PRINCIPAL --- */
 .main {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start; 
+  justify-content: flex-start;
   background: 
     radial-gradient(circle at top left, rgba(78, 150, 209, 0.2), transparent 60%),
     radial-gradient(circle at bottom right, rgba(0, 109, 178, 0.2), transparent 60%),
-    var(--cor-fundo-primaria);
+    #f8fafc;
   padding: 3rem 2rem;
-  gap: 2rem; 
+  gap: 2rem;
 }
 
+/* O Container agora é um Grid de 2 colunas */
 .container {
   width: 100%;
-  max-width: 32rem; 
+  max-width: 1100px;
+  display: grid;
+  grid-template-columns: 350px 1fr; /* Esquerda fixa, Direita flexível */
+  gap: 2rem;
+  margin-top: 40px;
+  align-items: start;
+}
+
+/* Coluna da Direita (Pendentes + Próximas Aulas) */
+.contentColumn {
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  margin-top: 80px;
 }
 
+/* --- COMPONENTES DE CARD --- */
 .card {
   width: 100%;
   background: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(12px);
   border-radius: 1.5rem;
-  padding: 3rem;
+  padding: 2rem;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
   border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
+.aulaSection {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.sectionLabel {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #9ca3af; /* Cinza discreto */
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.divider {
+  height: 1px;
+  background-color: #ddeaf7; /* Linha cinza bem suave */
+  margin: 1rem 0;
+  border: none;
+}
+
+/* --- ITENS DE AULA E STATUS --- */
+.aulaItem {
+  padding: 1rem;
+  background: #ffffff;
+  border: 1px solid #f3f4f6;
+  border-radius: 0.8rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: transform 0.2s;
+}
+
+.aulaItem:hover {
+  transform: translateY(-2px);
+}
+
+.aulaInfo p { margin: 0; font-weight: 600; color: #1f2937; }
+.aulaInfo span { font-size: 0.85rem; color: #6b7280; }
+
+/* Status: Aguardando Pagamento (Laranja) */
+.statusWaiting {
+  padding: 0.25rem 0.75rem;
+  background: #fff7ed;
+  color: #c2410c;
+  border: 1px solid #ffedd5;
+  border-radius: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+/* Status: Confirmada (Verde) */
+.statusConfirmed {
+  padding: 0.25rem 0.75rem;
+  background: #ecfdf5;
+  color: #065f46;
+  border: 1px solid #d1fae5;
+  border-radius: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+/* HEADER DO PERFIL */
 .header {
   text-align: center;
   margin-bottom: 2.5rem;
 }
 
-.headerInfo {
-  margin-bottom: 0.5rem;
-}
-
 .avatar {
   width: 90px;
   height: 90px;
-  background: var(--cor-primaria);
+  background: #006db2; /* Cor primária fixa para evitar erro de variável */
   color: white;
   border-radius: 50%;
   display: flex;
@@ -82,6 +154,7 @@
   margin-top: 0.5rem;
 }
 
+/* GRID E FORMULÁRIO */
 .infoGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -125,23 +198,9 @@
   font-size: 1rem;
   color: #1f2937;
   outline: none;
-  transition: all 0.2s;
 }
 
-.input:focus, .select:focus {
-  border-color: var(--cor-primaria);
-  box-shadow: 0 0 0 3px rgba(0, 109, 178, 0.1);
-}
-
-.select {
-  cursor: pointer;
-  appearance: none;
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-  background-repeat: no-repeat;
-  background-position: right 0.7rem center;
-  background-size: 1em;
-}
-
+/* BOTÕES */
 .actions {
   margin-top: 2rem;
   display: flex;
@@ -152,18 +211,12 @@
   width: 100%;
   margin-top: 2rem;
   padding: 0.9rem;
-  background: var(--cor-primaria);
+  background: #006db2;
   color: white;
   border: none;
   border-radius: 0.75rem;
   font-weight: 600;
   cursor: pointer;
-  transition: transform 0.2s, opacity 0.2s;
-}
-
-.editButton:hover {
-  opacity: 0.9;
-  transform: translateY(-1px);
 }
 
 .saveButton {
@@ -174,7 +227,6 @@
   border: none;
   border-radius: 0.75rem;
   font-weight: 600;
-  cursor: pointer;
 }
 
 .cancelButton {
@@ -185,9 +237,79 @@
   border: none;
   border-radius: 0.75rem;
   font-weight: 600;
-  cursor: pointer;
 }
 
+/* --- NOVAS CLASSES PARA SOLICITAÇÕES (Mantendo o estilo do Dashboard) --- */
+
+.requestCard {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  border: 1px solid #f3f4f6;
+  border-left: 5px solid #f59e0b; /* Indicador de pendência */
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.8rem;
+}
+
+.badge {
+  background: #fffbeb;
+  color: #b45309;
+  font-size: 0.7rem;
+  font-weight: 800;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.studentName {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #111827;
+  margin-bottom: 0.5rem;
+}
+
+.details {
+  background: #f9fafb;
+  padding: 0.8rem;
+  border-radius: 0.6rem;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+}
+
+.price {
+  color: #006db2;
+  font-weight: 800;
+}
+
+.approveButton {
+  background: #10b981;
+  color: white;
+  border: none;
+  padding: 0.6rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  flex: 1;
+}
+
+.rejectButton {
+  background: #fee2e2;
+  color: #ef4444;
+  border: none;
+  padding: 0.6rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  flex: 1;
+}
+
+/* AULAS AGENDADAS (ESTILO ORIGINAL) */
 .aulasTitle {
   font-size: 1.4rem;
   font-weight: 800;
@@ -209,16 +331,8 @@
   align-items: center;
 }
 
-.aulaInfo p {
-  margin: 0;
-  color: #1f2937;
-  font-weight: 500;
-}
-
-.aulaInfo span {
-  font-size: 0.85rem;
-  color: #6b7280;
-}
+.aulaInfo p { margin: 0; font-weight: 500; }
+.aulaInfo span { font-size: 0.85rem; color: #6b7280; }
 
 .statusTag {
   padding: 0.2rem 0.6rem;
@@ -227,4 +341,18 @@
   border-radius: 0.4rem;
   font-size: 0.75rem;
   font-weight: 600;
+}
+
+.emptyState {
+  text-align: center;
+  color: #9ca3af;
+  padding: 1rem;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 900px) {
+  .container {
+    grid-template-columns: 1fr;
+    max-width: 35rem;
+  }
 }
