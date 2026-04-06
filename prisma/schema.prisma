@@ -1,6 +1,5 @@
 datasource db {
   provider = "mysql"
-  url      = "mysql://root:100607mateus@localhost:3306/chat"
 }
 
 generator client {
@@ -8,17 +7,18 @@ generator client {
 }
 
 model User {
-  id       Int      @id @default(autoincrement())
+  id       Int        @id
   name     String
-  role     String   // "instrutor" ou "aluno"
+  role     String     // "instrutor" ou "aluno"
+  rooms    ChatRoom[] @relation("ChatUsers")
   messages Message[]
 }
 
 model ChatRoom {
-  id        Int       @id @default(autoincrement())
-  title     String?
-  users     User[]    @relation("ChatUsers")
-  messages  Message[]
+  id       Int       @id @default(autoincrement())
+  title    String?
+  users    User[]    @relation("ChatUsers")
+  messages Message[]
 }
 
 model Message {

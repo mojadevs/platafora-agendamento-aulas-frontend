@@ -34,7 +34,7 @@ export default function SolicitacoesList({ solicitacoesIniciais }: { solicitacoe
     new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(val);
 
   const formatDate = (dateString: string) => 
-    new Date(dateString).toLocaleDateString('pt-BR');
+    dateString.split('-').reverse().join('/');
 
   if (solicitacoes.length === 0) {
     return <div className={styles.emptyState}>Nenhuma solicitação pendente.</div>;
@@ -56,8 +56,14 @@ export default function SolicitacoesList({ solicitacoesIniciais }: { solicitacoe
             <p><strong>Total:</strong> <span className={styles.price}>{formatMoney(aula.valorTotal)}</span></p>
           </div>
 
+          {aula.descricao && (
+            <div className={styles.messageBox}>
+              <strong>💬 Mensagem do Aluno:</strong>
+              <p>"{aula.descricao}"</p>
+            </div>
+          )}
+
           <div className={styles.actions}>
-            {/* PASSAMOS O OBJETO AULA INTEIRO AQUI */}
             <button 
               onClick={() => handleAprovar(aula)} 
               className={styles.approveButton}

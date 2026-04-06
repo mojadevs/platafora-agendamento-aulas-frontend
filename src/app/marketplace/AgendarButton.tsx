@@ -8,7 +8,8 @@ import styles from "./marketplace.module.css";
 export default function AgendarButton({ instrutor, alunoId }: { instrutor: any, alunoId: string | undefined }) {
   const [isOpen, setIsOpen] = useState(false);
   const [dataAula, setDataAula] = useState("");
-  const [qtdAulas, setQtdAulas] = useState(1); // Novo estado para quantidade
+  const [qtdAulas, setQtdAulas] = useState(1);
+  const [mensagem, setMensagem] = useState(""); // 1. Novo estado para mensagem
   const [loading, setLoading] = useState(false);
   const [mounted, setMounted] = useState(false);
 
@@ -21,7 +22,6 @@ export default function AgendarButton({ instrutor, alunoId }: { instrutor: any, 
     }
   }, [isOpen]);
 
-  // Função auxiliar para formatar dinheiro
   const formatMoney = (val: number) => {
     return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(val);
   };
@@ -33,17 +33,16 @@ export default function AgendarButton({ instrutor, alunoId }: { instrutor: any, 
 
     setLoading(true);
 
-    // Cálculo do valor total
     const valorCalculado = instrutor.precoHora * qtdAulas;
 
     const payload = {
       idAluno: Number(alunoId),
       idInstrutor: instrutor.id,
       dataHora: dataAula,
-      // Agora enviamos um número inteiro, certifique-se que o Java espera Integer/int
       duracao: qtdAulas, 
       status: "PENDENTE",
-      valorTotal: valorCalculado
+      valorTotal: valorCalculado,
+      descricao: mensagem // 2. Enviando a mensagem para o campo 'descricao' do banco
     };
 
     const res = await createAula(payload);
@@ -54,6 +53,7 @@ export default function AgendarButton({ instrutor, alunoId }: { instrutor: any, 
       // Resetar estados
       setQtdAulas(1);
       setDataAula("");
+      setMensagem(""); // Limpa a mensagem
     } else {
       alert("Erro ao processar agendamento.");
     }
@@ -70,7 +70,8 @@ export default function AgendarButton({ instrutor, alunoId }: { instrutor: any, 
 
       {isOpen && createPortal(
         <div className={styles.modalOverlay} onClick={() => setIsOpen(false)}>
-          <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+          {/* Adicionei overflow-y-auto para garantir rolagem se o modal ficar alto */}
+          <div className={styles.modalContent} onClick={(e) => e.stopPropagation()} style={{ maxHeight: '90vh', overflowY: 'auto' }}>
             <h3 className={styles.cardTitle}>Agendar com {instrutor.nome}</h3>
             
             {/* Campo de DATA */}
@@ -96,12 +97,27 @@ export default function AgendarButton({ instrutor, alunoId }: { instrutor: any, 
                 value={qtdAulas}
                 onChange={(e) => setQtdAulas(Number(e.target.value))}
               />
-              <p style={{ fontSize: '0.8rem', color: '#666', marginTop: '0.2rem' }}>
-                Máximo de 20 aulas por pacote.
-              </p>
             </div>
 
-            {/* Exibição do TOTAL CALCULADO */}
+            {/* 3. Campo de MENSAGEM / OBSERVAÇÃO */}
+            <div className={styles.infoItem} style={{ marginTop: '1rem' }}>
+              <label className={styles.label}>Mensagem para o Instrutor (Opcional)</label>
+              <textarea 
+                className={styles.input} // Reutilizando a classe input para manter a borda
+                style={{ height: '80px', resize: 'none', fontFamily: 'inherit' }}
+                placeholder="Ex: Gostaria de focar em conversação..."
+                maxLength={100}
+                value={mensagem}
+                onChange={(e) => setMensagem(e.target.value)}
+              />
+              <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '4px' }}>
+                <span style={{ fontSize: '0.75rem', color: mensagem.length === 100 ? 'red' : '#9ca3af' }}>
+                  {mensagem.length}/100 caracteres
+                </span>
+              </div>
+            </div>
+
+            {/* Exibição do TOTAL */}
             <div style={{ 
               marginTop: '1.5rem', 
               padding: '1rem', 

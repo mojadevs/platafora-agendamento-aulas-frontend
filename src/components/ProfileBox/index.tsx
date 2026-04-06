@@ -40,12 +40,12 @@ export default function ProfileBox({ nome, role }: ProfileBoxProps) {
           <div className={styles.userInfo}>
             <span className={styles.userName}>{nome}</span>
             <span className={styles.userRole}>
-                {role === 'ALUNO' ? 'Aluno(a)' : 'Instrutor(a)'}
+                {role === 'ROLE_ALUNO' ? 'Aluno(a)' : 'Instrutor(a)'}
             </span>
           </div>
 
           {/* LÓGICA CONDICIONAL DE BOTÕES */}
-          {role === "ALUNO" ? (
+          {role === "ROLE_ALUNO" ? (
             <>
               {/* Botões exclusivos do Aluno */}
               <Link href="/aluno/perfil" className={styles.actionLink} onClick={() => setOpen(false)}>

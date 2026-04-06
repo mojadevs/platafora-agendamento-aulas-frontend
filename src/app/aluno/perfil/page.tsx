@@ -22,6 +22,7 @@ export default async function PerfilPage() {
 
   if (!aluno) {
     return (
+      console.error("Erro ao carregar dados do perfil", id, token),
       <main className={styles.main}>
         <div className={styles.card}>
           <p>Erro ao carregar dados do perfil. Tente novamente mais tarde.</p>
@@ -52,7 +53,7 @@ export default async function PerfilPage() {
                   <div key={aula.id} className={styles.aulaItem}>
                     <div className={styles.aulaInfo}>
                       <p>Aula com {aula.instrutorNome || "Instrutor"}</p>
-                      <span>{new Date(aula.dataHora).toLocaleString('pt-BR')}</span>
+                      <span>{new Date(aula.dataHora + "T00:00:00").toLocaleDateString('pt-BR')}</span>
                     </div>
                     {/* Aqui futuramente você colocará o botão "Pagar" */}
                     <span className={styles.statusWaiting}>AGUARDANDO PAGAMENTO</span>
@@ -73,7 +74,7 @@ export default async function PerfilPage() {
                   <div key={aula.id} className={styles.aulaItem}>
                     <div className={styles.aulaInfo}>
                       <p>Aula com {aula.instrutorNome}</p>
-                      <span>{new Date(aula.dataHora).toLocaleString('pt-BR')}</span>
+                      <span>{new Date(aula.dataHora + "T00:00:00").toLocaleDateString('pt-BR')}</span>
                     </div>
                     <span className={styles.statusConfirmed}>Confirmada</span>
                   </div>

@@ -1,6 +1,3 @@
-/* dashboard.module.css */
-
-/* --- LAYOUT PRINCIPAL --- */
 .main {
   min-height: 100vh;
   display: flex;
@@ -15,25 +12,22 @@
   gap: 2rem;
 }
 
-/* O Container agora é um Grid de 2 colunas */
 .container {
   width: 100%;
   max-width: 1100px;
   display: grid;
-  grid-template-columns: 350px 1fr; /* Esquerda fixa, Direita flexível */
+  grid-template-columns: 350px 1fr;
   gap: 2rem;
-  margin-top: 40px;
+  margin-top: 80px;
   align-items: start;
 }
 
-/* Coluna da Direita (Pendentes + Próximas Aulas) */
 .contentColumn {
   display: flex;
   flex-direction: column;
   gap: 2rem;
 }
 
-/* --- COMPONENTES DE CARD --- */
 .card {
   width: 100%;
   background: rgba(255, 255, 255, 0.9);
@@ -53,7 +47,7 @@
 .sectionLabel {
   font-size: 0.75rem;
   font-weight: 700;
-  color: #9ca3af; /* Cinza discreto */
+  color: #9ca3af; 
   text-transform: uppercase;
   letter-spacing: 0.05em;
   margin-bottom: 0.5rem;
@@ -62,12 +56,11 @@
 
 .divider {
   height: 1px;
-  background-color: #ddeaf7; /* Linha cinza bem suave */
+  background-color: #ddeaf7; 
   margin: 1rem 0;
   border: none;
 }
 
-/* --- ITENS DE AULA E STATUS --- */
 .aulaItem {
   padding: 1rem;
   background: #ffffff;
@@ -86,7 +79,6 @@
 .aulaInfo p { margin: 0; font-weight: 600; color: #1f2937; }
 .aulaInfo span { font-size: 0.85rem; color: #6b7280; }
 
-/* Status: Aguardando Pagamento (Laranja) */
 .statusWaiting {
   padding: 0.25rem 0.75rem;
   background: #fff7ed;
@@ -97,7 +89,6 @@
   font-weight: 700;
 }
 
-/* Status: Confirmada (Verde) */
 .statusConfirmed {
   padding: 0.25rem 0.75rem;
   background: #ecfdf5;
@@ -108,7 +99,6 @@
   font-weight: 700;
 }
 
-/* HEADER DO PERFIL */
 .header {
   text-align: center;
   margin-bottom: 2.5rem;
@@ -117,7 +107,7 @@
 .avatar {
   width: 90px;
   height: 90px;
-  background: #006db2; /* Cor primária fixa para evitar erro de variável */
+  background: #006db2;
   color: white;
   border-radius: 50%;
   display: flex;
@@ -154,7 +144,6 @@
   margin-top: 0.5rem;
 }
 
-/* GRID E FORMULÁRIO */
 .infoGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -200,7 +189,6 @@
   outline: none;
 }
 
-/* BOTÕES */
 .actions {
   margin-top: 2rem;
   display: flex;
@@ -239,14 +227,12 @@
   font-weight: 600;
 }
 
-/* --- NOVAS CLASSES PARA SOLICITAÇÕES (Mantendo o estilo do Dashboard) --- */
-
 .requestCard {
   background: white;
   padding: 1.5rem;
   border-radius: 1rem;
   border: 1px solid #f3f4f6;
-  border-left: 5px solid #f59e0b; /* Indicador de pendência */
+  border-left: 5px solid #f59e0b;
   margin-bottom: 1.5rem;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
 }
@@ -309,7 +295,6 @@
   flex: 1;
 }
 
-/* AULAS AGENDADAS (ESTILO ORIGINAL) */
 .aulasTitle {
   font-size: 1.4rem;
   font-weight: 800;
@@ -348,6 +333,30 @@
   color: #9ca3af;
   padding: 1rem;
   font-size: 0.9rem;
+}
+
+.messageBox {
+  margin: 1rem 0;
+  padding: 0.8rem;
+  background-color: #f0f9ff; 
+  border-left: 4px solid #0ea5e9;
+  border-radius: 4px;
+}
+
+.messageBox strong {
+  display: block;
+  font-size: 0.8rem;
+  color: #0369a1;
+  text-transform: uppercase;
+  margin-bottom: 0.3rem;
+}
+
+.messageBox p {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #374151;
+  font-style: italic;
+  line-height: 1.4;
 }
 
 @media (max-width: 900px) {

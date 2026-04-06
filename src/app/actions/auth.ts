@@ -21,12 +21,18 @@ export async function login(formData: FormData) {
 
   const data = await response.json()
   
-  createSession(data.token, data.role, data.nome, data.id)
+  
+  if (data.token) {
+    
+    await createSession(data.token, data.role, data.nome, data.idUsuario)
 
-  if (data.role === 'ALUNO') {
-    redirect('/marketplace')
+    if (data.role === 'ROLE_ALUNO') {
+      redirect('/marketplace')
+    } else {
+      redirect('/instrutor/dashboard')
+    }
   } else {
-    redirect('/instrutor/dashboard')
+    return { error: 'Falha na autenticação' }
   }
 }
 
@@ -35,8 +41,7 @@ export async function registerAluno(formData: FormData) {
     nome: formData.get('nome'),
     email: formData.get('email'),
     senha: formData.get('senha'),
-    telefone: formData.get('telefone'),
-    ativo: true 
+    telefone: formData.get('telefone')
   }
   const response = await fetch(`${API_URL}/alunos/`, {
     method: 'POST',
@@ -50,11 +55,10 @@ export async function registerAluno(formData: FormData) {
 
   const data = await response.json()
 
-  if (data.token) {
     if (data.token) {
-    createSession(data.token, 'ALUNO', data.nome, data.id)
+    console.log('Aluno cadastrado com sucesso:', data)
+    createSession(data.token, 'ROLE_ALUNO', data.nome, data.idUsuario)
     redirect('/marketplace')
-  }
   }
 }
 
@@ -82,7 +86,8 @@ export async function registerInstrutor(formData: FormData) {
   const data = await response.json()
 
   if (data.token) {
-    createSession(data.token, 'INSTRUTOR', data.nome, data.id)
+    createSession(data.token, 'ROLE_INSTRUTOR', data.nome, data.id)
+    console.log('Instrutor cadastrado com sucesso:', data)
     redirect('/instrutor/dashboard')
   }
 }

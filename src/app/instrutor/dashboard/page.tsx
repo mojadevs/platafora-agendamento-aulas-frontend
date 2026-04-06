@@ -62,7 +62,7 @@ export default async function InstrutorDashboard() {
                   <div key={aula.id} className={styles.aulaItem}>
                     <div className={styles.aulaInfo}>
                       <p>{aula.nomeAluno || "Aluno"}</p>
-                      <span>{new Date(aula.dataHora).toLocaleString('pt-BR')}</span>
+                      <span>{new Date(aula.dataHora + "T00:00:00").toLocaleDateString('pt-BR')}</span>
                     </div>
                     <span className={styles.statusWaiting}>Aguardando Pagamento</span>
                   </div>

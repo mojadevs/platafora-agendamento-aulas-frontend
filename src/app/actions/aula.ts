@@ -3,13 +3,13 @@
 import { cookies } from "next/headers";
 import { revalidatePath } from "next/cache";
 
-const API_URL = "http://localhost:8080/aulas";
+const API_URL = "http://localhost:8080";
 
 export async function createAula(data: any) {
   try {
     const token = cookies().get("session_token")?.value || "";
     
-    const response = await fetch(`${API_URL}/`, {
+    const response = await fetch(`${API_URL}/aulas/`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -33,7 +33,7 @@ export async function getAulasPorStatus(instrutorId: string, status: string) {
   const token = cookieStore.get("session_token")?.value;
 
   try {
-    const res = await fetch(`${API_URL}/status/instrutores/${instrutorId}`, {
+    const res = await fetch(`${API_URL}/aulas/status/instrutores/${instrutorId}`, {
       method: "POST", 
       headers: {
         "Content-Type": "application/json",
@@ -69,7 +69,7 @@ export async function aprovarAula(aulaOriginal: any) {
       status: "AGUARDANDO_PAGAMENTO"
     };
 
-    const res = await fetch(`${API_URL}/${aulaOriginal.id}`, {
+    const res = await fetch(`${API_URL}/aulas/${aulaOriginal.id}`, {
       method: "PUT",
       headers: { 
         "Content-Type": "application/json",
@@ -94,7 +94,7 @@ export async function recusarAula(aulaId: string) {
     const cookieStore = cookies();
     const token = cookieStore.get("session_token")?.value;
   try {
-    const res = await fetch(`${API_URL}/${aulaId}`, {
+    const res = await fetch(`${API_URL}/aulas/${aulaId}`, {
       method: "DELETE",
         headers: {
         "Authorization": `Bearer ${token}`
@@ -116,7 +116,7 @@ export async function getAulasAluno(alunoId: string, status: string) {
   const token = cookieStore.get("session_token")?.value;
 
   try {
-    const res = await fetch(`${API_URL}/status/alunos/${alunoId}`, {
+    const res = await fetch(`${API_URL}/aulas/status/alunos/${alunoId}`, {
       method: "POST", 
       headers: {
         "Content-Type": "application/json",
